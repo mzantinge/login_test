@@ -1,0 +1,29 @@
+<HTML>
+<H1>POCV2.009</H1>
+<hr>
+<H2>.AUTH/ME RESPONSE</H2><p id="token"></p>
+<hr>
+<H2>ACCESS TOKEN</H2><p id="access"></p>
+<hr>
+<H2>API/ME RESPONSE</H2> <p id="api"></p>
+<hr>
+</HTML>
+
+<script>
+
+token = getHeader("X-ACCESS-TOKEN");
+console.log(token);
+
+    tokenjson=JSON.parse(this.responseText);
+    token=tokenjson[0].access_token;
+    document.getElementById("access").innerText = token;
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open("GET", "/api/me", true);
+        xhr2.setRequestHeader('Accept', 'application/json');
+        xhr2.setRequestHeader('Authorization', 'Bearer ' + token);
+        xhr2.send();
+        xhr2.onload = function() {
+        document.getElementById("api").innerText = this.responseText;
+    }
+
+</script>
